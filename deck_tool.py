@@ -1,4 +1,5 @@
 from enum import Enum
+import random
 
 def main():
     card = Card(CardValue.ACE, CardSuit.SPADES)
@@ -41,3 +42,53 @@ class Card:
 
 if __name__ == "__main__":
     main()
+
+class Deck:
+    def __init__(self, visible = False):
+        self.visible = visible
+        self.deck = []
+
+    def fillStandardDeck(self):
+        for value_num in range(1, 14):
+            for suit_num in range(0, 4):
+                value = CardValue(value_num)
+                suit = CardSuit(suit_num)
+                self.deck.append(Card(value, suit))
+
+    def fillJokerDeck(self):
+        self.deck.append(Card(CardValue.JOKER, CardSuit.BLACK))
+        self.deck.append(Card(CardValue.JOKER, CardSuit.RED))
+
+    def fillList(self, cards):
+        self.deck.extend(cards)
+
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+    def cut(self):
+        if len(self.deck) == 0:
+            return Deck()
+        
+        mid_point = len(self.deck) // 2
+        std_dev = len(self.deck) * 0.1
+        cut_point = round(random.gauss(mid_point, std_dev))
+
+        cut_point = max(0, min(len(self.deck), cut_point))
+
+        second_deck = Deck()
+        second_deck.fillList(self.deck[cut_point:])
+        self.deck = self.deck[:cut_point]
+
+        return second_deck
+
+    def draw(self, num = 1):
+        if len(self.deck) == 0:
+            return []
+        
+        num = min(num, len(self.deck))
+        drawn_cards = self.deck[-num:]
+        self.deck = self.deck[:-num]
+        return drawn_cards
+    
+    def is_empty(self):
+        return len(self.deck) == 0

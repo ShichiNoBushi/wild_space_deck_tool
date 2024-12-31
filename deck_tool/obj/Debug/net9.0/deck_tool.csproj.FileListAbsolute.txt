@@ -1,0 +1,15 @@
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/bin/Debug/net9.0/deck_tool
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/bin/Debug/net9.0/deck_tool.deps.json
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/bin/Debug/net9.0/deck_tool.runtimeconfig.json
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/bin/Debug/net9.0/deck_tool.dll
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/bin/Debug/net9.0/deck_tool.pdb
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.AssemblyInfoInputs.cache
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.AssemblyInfo.cs
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.csproj.CoreCompileInputs.cache
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.sourcelink.json
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.dll
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/refint/deck_tool.dll
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.pdb
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/deck_tool.genruntimeconfig.cache
+/Users/jameshidahl/workspace/wild_space_deck_tool/deck_tool/obj/Debug/net9.0/ref/deck_tool.dll
