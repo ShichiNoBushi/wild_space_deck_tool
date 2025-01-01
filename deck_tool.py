@@ -1,8 +1,12 @@
 from deck import *
 
 def main():
-    card = Card(CardValue.ACE, CardSuit.SPADES)
-    print(card)
+    deck = Deck()
+    deck.fillStandardDeck()
+    deck.shuffle()
+
+    hand = deck.draw(5)
+    print(hand)
 
 if __name__ == "__main__":
     main()

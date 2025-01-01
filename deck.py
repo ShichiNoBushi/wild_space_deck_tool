@@ -166,6 +166,23 @@ class Deck:
         self.visible = visible
         self.deck = []
 
+    def __str__(self):
+        str = ""
+        for card in self.deck:
+            str += card + ", "
+
+        return str.rstrip(", ")
+    
+    def __repr__(self):
+        str = ""
+        for card in self.deck:
+            str += card.__repr__ +  ", "
+
+        return "[" + str.rstrip(", ") + "]"
+    
+    def size(self):
+        return len(self.deck)
+
     def fillStandardDeck(self):
         for value_num in range(1, 14):
             for suit_num in range(0, 4):
@@ -190,11 +207,11 @@ class Deck:
         random.shuffle(self.deck)
 
     def cut(self):
-        if len(self.deck) == 0:
+        if self.size() == 0:
             return Deck()
         
-        mid_point = len(self.deck) // 2
-        std_dev = len(self.deck) * 0.1
+        mid_point = self.size() // 2
+        std_dev = self.size() * 0.1
         cut_point = round(random.gauss(mid_point, std_dev))
 
         cut_point = max(0, min(len(self.deck), cut_point))
@@ -206,22 +223,22 @@ class Deck:
         return second_deck
 
     def draw(self, num = 1):
-        if len(self.deck) == 0:
+        if self.size() == 0:
             return []
         
-        num = min(num, len(self.deck))
+        num = min(num, self.size())
         drawn_cards = self.deck[-num:]
         self.deck = self.deck[:-num]
         return drawn_cards
     
     def draw_bottom(self, num = 1):
-        if len(self.deck) == 0:
+        if self.size() == 0:
             return []
         
-        num = min(num, len(self.deck))
+        num = min(num, self.size())
         drawn_cards = self.deck[num]
         self.deck = self.deck[:num]
         return drawn_cards
     
     def is_empty(self):
-        return len(self.deck) == 0
+        return self.size() == 0
