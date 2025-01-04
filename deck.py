@@ -79,6 +79,15 @@ class Card:
         if self.value == card.value:
             return self.suit >= card.suit
         return self.value >= card.value
+    
+    def short_hand(self):
+        v_map = {CardValue.Jack: "J", CardValue.Queen: "Q", CardValue.King: "K", CardValue.Ace: "A", CardValue.Joker: "Jok"}
+        s_map = {CardSuit.Spades: "S", CardSuit.Hearts: "H", CardSuit.Clubs: "C", CardSuit.Diamonds: "D", CardSuit.Black: "B", CardSuit.Red: "R"}
+
+        v_short = v_map.get(self.value, str(self.value.value))
+        s_short = s_map.get(self.suit)
+
+        return v_short + s_short
         
     def is_face(self):  #if the card is a Jack, Queen, or King
         return self.value in {CardValue.Jack, CardValue.Queen, CardValue.King}
@@ -167,18 +176,18 @@ class Deck:
         self.deck = []
 
     def __str__(self):
-        str = ""
+        word = ""
         for card in self.deck:
-            str += card + ", "
+            word += str(card) + ", "
 
-        return str.rstrip(", ")
+        return word.rstrip(", ")
     
     def __repr__(self):
-        str = ""
+        word = ""
         for card in self.deck:
-            str += card.__repr__ +  ", "
+            word += repr(card) +  ", "
 
-        return "[" + str.rstrip(", ") + "]"
+        return "[" + word.rstrip(", ") + "]"
     
     def size(self):
         return len(self.deck)
@@ -191,18 +200,15 @@ class Deck:
                 self.deck.append(Card(value, suit))
 
     def fillJokerDeck(self):
-        self.deck.append(Card(CardValue.JOKER, CardSuit.BLACK))
-        self.deck.append(Card(CardValue.JOKER, CardSuit.RED))
+        self.deck.append(Card(CardValue.Joker, CardSuit.Black))
+        self.deck.append(Card(CardValue.Joker, CardSuit.Red))
 
     def fillList(self, cards):
         self.deck.extend(cards)
 
     def shuffle(self, *decks):
-        if len(decks) == 0:
-            random.shuffle(self.deck)
-
         for d in decks:
-            self.deck.extend(d)
+            self.deck.extend(d.deck)
 
         random.shuffle(self.deck)
 
@@ -236,9 +242,17 @@ class Deck:
             return []
         
         num = min(num, self.size())
-        drawn_cards = self.deck[num]
-        self.deck = self.deck[:num]
+        drawn_cards = self.deck[:num]
+        self.deck = self.deck[num:]
         return drawn_cards
     
     def is_empty(self):
         return self.size() == 0
+    
+class Check_Result:
+    def __init__(self, successes, cards):
+        self.successes = successes
+        self.cards = cards
+
+    def __str__(self):
+        return f"Successes: {self.successes}, Cards Drawn: {self.cards}"
