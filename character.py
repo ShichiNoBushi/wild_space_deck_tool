@@ -99,7 +99,7 @@ class Character:    #Wild Space RPG character
 
         self.stress.fillList(hand)  #discard drawn cards to the stress pile
 
-        if self.is_empty(): #if the active deck is empty, move one card to fatigue then shuffle the dead deck and stress pile into the active deck
+        if self.activeDeck.is_empty(): #if the active deck is empty, move one card to fatigue then shuffle the dead deck and stress pile into the active deck
             self.fatigue.fillList(self.deadDeck.draw_bottom())
             self.activeDeck.shuffle([self.deadDeck, self.stress])
 
