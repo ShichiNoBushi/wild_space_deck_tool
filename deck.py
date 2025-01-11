@@ -209,8 +209,12 @@ class Deck:
     def shuffle(self, *decks):
         for d in decks:
             self.deck.extend(d.deck)
+            d.empty()
 
         random.shuffle(self.deck)
+
+    def empty(self):
+        self.deck = []
 
     def cut(self):
         if self.size() == 0:

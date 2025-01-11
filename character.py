@@ -101,7 +101,7 @@ class Character:    #Wild Space RPG character
 
         if self.activeDeck.is_empty(): #if the active deck is empty, move one card to fatigue then shuffle the dead deck and stress pile into the active deck
             self.fatigue.fillList(self.deadDeck.draw_bottom())
-            self.activeDeck.shuffle([self.deadDeck, self.stress])
+            self.activeDeck.shuffle(self.deadDeck, self.stress)
 
         return hand
 
@@ -156,5 +156,5 @@ class Character:    #Wild Space RPG character
 
         if self.activeDeck.size() == 0:
             self.fatigue.fillList(self.deadDeck.draw_bottom())
-            self.activeDeck.shuffle([self.deadDeck, self.stress])
+            self.activeDeck.shuffle(self.deadDeck, self.stress)
             self.deadDeck = self.activeDeck.cut()

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("deck_tool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20fc5a87212d59fc2e19e329e22c9fb52236340a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17528c6e048f06ecc3524853ee8f29d92ae29cd5")]
 [assembly: System.Reflection.AssemblyProductAttribute("deck_tool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("deck_tool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
