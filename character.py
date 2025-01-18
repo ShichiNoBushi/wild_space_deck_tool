@@ -69,10 +69,38 @@ class Character:    #Wild Space RPG character
         self.will.score = stat_array[5]
 
     def set_skill(self, name, score, category):
+        this_cat = "miscelaneous"
+
+        if category != None and category != "":
+            this_cat = category
+
+        if this_cat not in self.skills:
+            self.skills[this_cat] = {}
+
+        if name not in self.skills[this_cat]:
+            self.skills[this_cat][name] = Skill(score, name, category)
+        else:
+            self.skills[this_cat][name].score = score
+
+        """
         if name not in self.skills:
             self.skills[name] = Skill(score, name, category)
         else:
             self.skills[name].score = score
+        """
+
+    def get_skill(self, name, category = None):
+        if category == None:
+            for cat in self.skills:
+                for n in self.skills[cat]:
+                    if n == name:
+                        return self.skills[cat][n]
+        else:
+            for n in self.skills[category]:
+                if n == name:
+                    return self.skills[category][n]
+                
+        raise Exception(f"Skill {name} not found.")
 
     def pain_threshold(self):
         return min(self.endurance.score, self.will.score) // 2
