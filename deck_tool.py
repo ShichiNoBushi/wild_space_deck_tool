@@ -86,8 +86,92 @@ class Window:
 
         self.char_data_frame1.pack(side = tk.RIGHT)
 
-        self.create_button = tk.Button(self.create_tab, text = "Create Character", command = self.create_character_simple)  #button to create a character
-        self.create_button.pack()
+        self.create_button = tk.Button(self.create_tab, text = "Create Character", command = self.create_character)  #button to create a character
+        self.create_button.pack(side = tk.TOP)
+
+        self.create_name_frame = tk.Frame(self.create_tab)
+
+        self.name_label = tk.Label(self.create_name_frame, text = "Name:")
+        self.name_label.pack(side = tk.LEFT)
+
+        self.name_cv = tk.StringVar()
+        self.name_entry = tk.Entry(self.create_name_frame, textvariable = self.name_cv)
+        self.name_entry.pack(side = tk.RIGHT)
+
+        self.create_name_frame.pack(side = tk.TOP)
+
+        self.create_att_frame = tk.Frame(self.create_tab)
+
+        self.attribute_label = tk.Label(self.create_att_frame, text = "Attributes:")
+        self.attribute_label.pack()
+
+        self.strength_frame = tk.Frame(self.create_att_frame)
+
+        self.strength_label = tk.Label(self.strength_frame, justify = tk.LEFT, text = "Strength:     ", width = 15)
+        self.strength_label.pack(side = tk.LEFT)
+
+        self.strength_cv = tk.IntVar()
+        self.strength_entry = tk.Entry(self.strength_frame, textvariable = self.strength_cv, width = 3)
+        self.strength_entry.pack(side = tk.RIGHT)
+
+        self.strength_frame.pack()
+
+        self.agility_frame = tk.Frame(self.create_att_frame)
+
+        self.agility_label = tk.Label(self.agility_frame, justify = tk.LEFT, text = "Agility:       ", width = 15)
+        self.agility_label.pack(side = tk.LEFT)
+
+        self.agility_cv = tk.IntVar()
+        self.agility_entry = tk.Entry(self.agility_frame, textvariable = self.agility_cv, width = 3)
+        self.agility_entry.pack(side = tk.RIGHT)
+
+        self.agility_frame.pack()
+
+        self.endurance_frame = tk.Frame(self.create_att_frame)
+
+        self.endurance_label = tk.Label(self.endurance_frame, justify = tk.LEFT, text = "Endurance:     ", width = 15)
+        self.endurance_label.pack(side = tk.LEFT)
+
+        self.endurance_cv = tk.IntVar()
+        self.endurance_entry = tk.Entry(self.endurance_frame, textvariable = self.endurance_cv, width = 3)
+        self.endurance_entry.pack(side = tk.RIGHT)
+
+        self.endurance_frame.pack()
+
+        self.intellect_frame = tk.Frame(self.create_att_frame)
+
+        self.intellect_label = tk.Label(self.intellect_frame, justify = tk.LEFT, text = "Intellect:     ", width = 15)
+        self.intellect_label.pack(side = tk.LEFT)
+
+        self.intellect_cv = tk.IntVar()
+        self.intellect_entry = tk.Entry(self.intellect_frame, textvariable = self.intellect_cv, width = 3)
+        self.intellect_entry.pack(side = tk.RIGHT)
+
+        self.intellect_frame.pack()
+
+        self.perception_frame = tk.Frame(self.create_att_frame)
+
+        self.perception_label = tk.Label(self.perception_frame, justify = tk.LEFT, text = "Perception:    ", width = 15)
+        self.perception_label.pack(side = tk.LEFT)
+
+        self.perception_cv = tk.IntVar()
+        self.perception_entry = tk.Entry(self.perception_frame, textvariable = self.perception_cv, width = 3)
+        self.perception_entry.pack(side = tk.RIGHT)
+
+        self.perception_frame.pack()
+
+        self.will_frame = tk.Frame(self.create_att_frame)
+
+        self.will_label = tk.Label(self.will_frame, justify = tk.LEFT, text = "Will:          ", width = 15)
+        self.will_label.pack(side = tk.LEFT)
+
+        self.will_cv = tk.IntVar()
+        self.will_entry = tk.Entry(self.will_frame, textvariable = self.will_cv, width = 3)
+        self.will_entry.pack(side = tk.RIGHT)
+
+        self.will_frame.pack()
+
+        self.create_att_frame.pack(side = tk.TOP)
 
         self.main_nb.pack(side = tk.TOP)
 
@@ -164,16 +248,39 @@ class Window:
             self.update_log("No character selected.")
         else:
             character = self.characters[self.characters_list.get(self.characters_list.curselection()[0])]
-            chara_data = ""
             name_line = f"Name: {character.name}\n\n"
             attributes_line = f"Attributes:\nStrength:   {character.strength.score}\nAgility:    {character.agility.score}\nEndurance:  {character.endurance.score}\nIntellect:  {character.intellect.score}\nPerception: {character.perception.score}\nWill:       {character.will.score}\n\n"
             derived_line = f"Derived stats:\nHealth:          {character.health()}\nPain Threshold:  {character.pain_threshold()}\nFocus Threshold: {character.focus_threshold()}\n\n"
 
-            chara_data += name_line + attributes_line + derived_line
+            chara_data = name_line + attributes_line + derived_line
             self.characters_data.config(state = tk.NORMAL)
             self.characters_data.delete(1.0, tk.END)
             self.characters_data.insert(tk.END, chara_data)
-            self.characters_data.config(state = tk.DISABLED) 
+            self.characters_data.config(state = tk.DISABLED)
+
+    def create_character(self):
+        new_name = self.name_cv.get()
+        if new_name == "":
+            new_name = "(no name)"
+
+        try:
+            strength = self.strength_cv.get()
+            agility = self.agility_cv.get()
+            endurance = self.endurance_cv.get()
+            intellect = self.intellect_cv.get()
+            perception = self.perception_cv.get()
+            will = self.will_cv.get()
+
+            new_character = Character(new_name, [("Strength", strength), ("Agility", agility), ("Endurance", endurance), ("Intellect", intellect), ("Perception", perception), ("Will", will)])
+
+            if new_name not in self.characters:
+                self.characters[new_name] = new_character
+                self.update_log(f"Character {new_name} added.")
+                self.update_listbox()
+            else:
+                self.update_log(f"Character with name {new_name} already exists.")
+        except tk.TclError:
+            self.update_log("Attribute entry error: Attribute values must be whole numbers.")
 
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"
