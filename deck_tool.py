@@ -86,7 +86,7 @@ class Window:
 
         self.char_data_frame1.pack(side = tk.RIGHT)
 
-        self.create_button = tk.Button(self.create_tab, text = "Create Character", command = self.create_character)  #button to create a character
+        self.create_button = tk.Button(self.create_tab, text = "Create Character", command = self.create_character, state = tk.DISABLED)  #button to create a character
         self.create_button.pack(side = tk.TOP)
 
         self.create_name_frame = tk.Frame(self.create_tab)
@@ -102,74 +102,107 @@ class Window:
 
         self.create_att_frame = tk.Frame(self.create_tab)
 
-        self.attribute_label = tk.Label(self.create_att_frame, text = "Attributes:")
-        self.attribute_label.pack()
+        self.select_att_frame = tk.Frame(self.create_att_frame)
 
-        self.strength_frame = tk.Frame(self.create_att_frame)
+        self.attribute_label = tk.Label(self.select_att_frame, text = "Attributes:")
+        self.attribute_label.grid(row = 0, column = 0, columnspan = 2)
 
-        self.strength_label = tk.Label(self.strength_frame, justify = tk.LEFT, text = "Strength:     ", width = 15)
-        self.strength_label.pack(side = tk.LEFT)
+        self.select_attribute = tk.StringVar()
+
+        self.strength_radio = tk.Radiobutton(self.select_att_frame, text = "Strength:", value = "Strength", variable = self.select_attribute)
+        self.strength_radio.grid(row = 1, column = 0, sticky = "W")
 
         self.strength_cv = tk.IntVar()
-        self.strength_entry = tk.Entry(self.strength_frame, textvariable = self.strength_cv, width = 3)
-        self.strength_entry.pack(side = tk.RIGHT)
+        self.strength_entry = tk.Entry(self.select_att_frame, textvariable = self.strength_cv, width = 3)
+        self.strength_entry.grid(row = 1, column = 1)
 
-        self.strength_frame.pack()
-
-        self.agility_frame = tk.Frame(self.create_att_frame)
-
-        self.agility_label = tk.Label(self.agility_frame, justify = tk.LEFT, text = "Agility:       ", width = 15)
-        self.agility_label.pack(side = tk.LEFT)
+        self.agility_radio = tk.Radiobutton(self.select_att_frame, text = "Agility:", value = "Agility", variable = self.select_attribute)
+        self.agility_radio.grid(row = 2, column = 0, sticky = "W")
 
         self.agility_cv = tk.IntVar()
-        self.agility_entry = tk.Entry(self.agility_frame, textvariable = self.agility_cv, width = 3)
-        self.agility_entry.pack(side = tk.RIGHT)
+        self.agility_entry = tk.Entry(self.select_att_frame, textvariable = self.agility_cv, width = 3)
+        self.agility_entry.grid(row = 2, column = 1)
 
-        self.agility_frame.pack()
-
-        self.endurance_frame = tk.Frame(self.create_att_frame)
-
-        self.endurance_label = tk.Label(self.endurance_frame, justify = tk.LEFT, text = "Endurance:     ", width = 15)
-        self.endurance_label.pack(side = tk.LEFT)
+        self.endurance_radio = tk.Radiobutton(self.select_att_frame, text = "Endurance:", value = "Endurance", variable = self.select_attribute)
+        self.endurance_radio.grid(row = 3, column = 0, sticky = "W")
 
         self.endurance_cv = tk.IntVar()
-        self.endurance_entry = tk.Entry(self.endurance_frame, textvariable = self.endurance_cv, width = 3)
-        self.endurance_entry.pack(side = tk.RIGHT)
+        self.endurance_entry = tk.Entry(self.select_att_frame, textvariable = self.endurance_cv, width = 3)
+        self.endurance_entry.grid(row = 3, column = 1)
 
-        self.endurance_frame.pack()
-
-        self.intellect_frame = tk.Frame(self.create_att_frame)
-
-        self.intellect_label = tk.Label(self.intellect_frame, justify = tk.LEFT, text = "Intellect:     ", width = 15)
-        self.intellect_label.pack(side = tk.LEFT)
+        self.intellect_radio = tk.Radiobutton(self.select_att_frame, text = "Intellect:", value = "Intellect", variable = self.select_attribute)
+        self.intellect_radio.grid(row = 4, column = 0, sticky = "W")
 
         self.intellect_cv = tk.IntVar()
-        self.intellect_entry = tk.Entry(self.intellect_frame, textvariable = self.intellect_cv, width = 3)
-        self.intellect_entry.pack(side = tk.RIGHT)
+        self.intellect_entry = tk.Entry(self.select_att_frame, textvariable = self.intellect_cv, width = 3)
+        self.intellect_entry.grid(row = 4, column = 1)
 
-        self.intellect_frame.pack()
-
-        self.perception_frame = tk.Frame(self.create_att_frame)
-
-        self.perception_label = tk.Label(self.perception_frame, justify = tk.LEFT, text = "Perception:    ", width = 15)
-        self.perception_label.pack(side = tk.LEFT)
+        self.perception_radio = tk.Radiobutton(self.select_att_frame, text = "Perception:", value = "Perception", variable = self.select_attribute)
+        self.perception_radio.grid(row = 5, column = 0, sticky = "W")
 
         self.perception_cv = tk.IntVar()
-        self.perception_entry = tk.Entry(self.perception_frame, textvariable = self.perception_cv, width = 3)
-        self.perception_entry.pack(side = tk.RIGHT)
+        self.perception_entry = tk.Entry(self.select_att_frame, textvariable = self.perception_cv, width = 3)
+        self.perception_entry.grid(row = 5, column = 1, sticky = "W")
 
-        self.perception_frame.pack()
-
-        self.will_frame = tk.Frame(self.create_att_frame)
-
-        self.will_label = tk.Label(self.will_frame, justify = tk.LEFT, text = "Will:          ", width = 15)
-        self.will_label.pack(side = tk.LEFT)
+        self.will_radio = tk.Radiobutton(self.select_att_frame, text = "Will:", value = "Will", variable = self.select_attribute)
+        self.will_radio.grid(row = 6, column = 0, sticky = "W")
 
         self.will_cv = tk.IntVar()
-        self.will_entry = tk.Entry(self.will_frame, textvariable = self.will_cv, width = 3)
-        self.will_entry.pack(side = tk.RIGHT)
+        self.will_entry = tk.Entry(self.select_att_frame, textvariable = self.will_cv, width = 3)
+        self.will_entry.grid(row = 6, column = 1)
 
-        self.will_frame.pack()
+        self.select_att_frame.pack(side = tk.LEFT)
+
+        self.select_value_frame = tk.Frame(self.create_att_frame)
+
+        self.array_label = tk.Label(self.select_value_frame, text = "Array:")
+        self.array_label.grid(row = 0, column = 0, columnspan = 2)
+
+        self.select_value = tk.IntVar()
+
+        self.att1_radio = tk.Radiobutton(self.select_value_frame, value = 1, variable = self.select_value)
+        self.att1_radio.grid(row = 1, column = 0)
+
+        self.att1_cv = tk.IntVar()
+        self.att1_entry = tk.Entry(self.select_value_frame, textvariable = self.att1_cv, width = 3)
+        self.att1_entry.grid(row = 1, column = 1)
+
+        self.att2_radio = tk.Radiobutton(self.select_value_frame, value = 2, variable = self.select_value)
+        self.att2_radio.grid(row = 2, column = 0)
+
+        self.att2_cv = tk.IntVar()
+        self.att2_entry = tk.Entry(self.select_value_frame, textvariable = self.att2_cv, width = 3)
+        self.att2_entry.grid(row = 2, column = 1)
+
+        self.att3_radio = tk.Radiobutton(self.select_value_frame, value = 3, variable = self.select_value)
+        self.att3_radio.grid(row = 3, column = 0)
+
+        self.att3_cv = tk.IntVar()
+        self.att3_entry = tk.Entry(self.select_value_frame, textvariable = self.att3_cv, width = 3)
+        self.att3_entry.grid(row = 3, column = 1)
+
+        self.att4_radio = tk.Radiobutton(self.select_value_frame, value = 4, variable = self.select_value)
+        self.att4_radio.grid(row = 4, column = 0)
+
+        self.att4_cv = tk.IntVar()
+        self.att4_entry = tk.Entry(self.select_value_frame, textvariable = self.att4_cv, width = 3)
+        self.att4_entry.grid(row = 4, column = 1)
+
+        self.att5_radio = tk.Radiobutton(self.select_value_frame, value = 5, variable = self.select_value)
+        self.att5_radio.grid(row = 5, column = 0)
+
+        self.att5_cv = tk.IntVar()
+        self.att5_entry = tk.Entry(self.select_value_frame, textvariable = self.att5_cv, width = 3)
+        self.att5_entry.grid(row = 5, column = 1)
+
+        self.att6_radio = tk.Radiobutton(self.select_value_frame, value = 6, variable = self.select_value)
+        self.att6_radio.grid(row = 6, column = 0)
+
+        self.att6_cv = tk.IntVar()
+        self.att6_entry = tk.Entry(self.select_value_frame, textvariable = self.att6_cv, width = 3)
+        self.att6_entry.grid(row = 6, column = 1)
+
+        self.select_value_frame.pack(side = tk.RIGHT)
 
         self.create_att_frame.pack(side = tk.TOP)
 

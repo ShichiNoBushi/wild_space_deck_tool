@@ -3,6 +3,7 @@ from deck import *
 class Attribute:    #basic character trait
     def __init__(self, score, name):
         self.score = score
+        self.experience = 0
         self.name = name
 
     def __str__(self):
@@ -10,10 +11,21 @@ class Attribute:    #basic character trait
     
     def __repr__(self):
         return f"Attribute(name = {self.name}, score = {self.score})"
+    
+    def gain_experience(self, exp): #gaining experience in Attribute and possibly improving it
+        self.experience += exp
+
+        if self.experience >= self.score:
+            self.score += 1
+            self.experience = 0
+            return True
+
+        return False
 
 class Skill:    #character skill representing training
     def __init__(self, score, name, category):
         self.score = score
+        self.experience = 0
         self.name = name
         self.category = category
 
@@ -22,6 +34,20 @@ class Skill:    #character skill representing training
     
     def __repr__(self):
         return f"Skill(name = {self.name}, score = {self.score}, category = {self.category})"
+    
+    def gain_experience(self, exp): #gaining experience in Skill and possibly improving it
+        self.experience += exp
+
+        if self.score != 0 and self.experience >= self.score:
+            self.score += 1
+            self.experience = 0
+            return True
+        elif self.score == 0 and self.experience >= 20:
+            self.score = 5
+            self.experience = 0
+            return True
+
+        return False
 
 class Character:    #Wild Space RPG character
     def __init__(self, name, attributes = None):
