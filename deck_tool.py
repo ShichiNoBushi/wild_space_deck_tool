@@ -109,47 +109,50 @@ class Window:
 
         self.select_attribute = tk.StringVar()
 
-        self.strength_radio = tk.Radiobutton(self.select_att_frame, text = "Strength:", value = "Strength", variable = self.select_attribute)
+        self.strength_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Strength:", value = "Strength", variable = self.select_attribute)
         self.strength_radio.grid(row = 1, column = 0, sticky = "W")
 
         self.strength_cv = tk.IntVar()
-        self.strength_entry = tk.Entry(self.select_att_frame, textvariable = self.strength_cv, width = 3)
+        self.strength_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.strength_cv, width = 3)
         self.strength_entry.grid(row = 1, column = 1)
 
-        self.agility_radio = tk.Radiobutton(self.select_att_frame, text = "Agility:", value = "Agility", variable = self.select_attribute)
+        self.agility_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Agility:", value = "Agility", variable = self.select_attribute)
         self.agility_radio.grid(row = 2, column = 0, sticky = "W")
 
         self.agility_cv = tk.IntVar()
-        self.agility_entry = tk.Entry(self.select_att_frame, textvariable = self.agility_cv, width = 3)
+        self.agility_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.agility_cv, width = 3)
         self.agility_entry.grid(row = 2, column = 1)
 
-        self.endurance_radio = tk.Radiobutton(self.select_att_frame, text = "Endurance:", value = "Endurance", variable = self.select_attribute)
+        self.endurance_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Endurance:", value = "Endurance", variable = self.select_attribute)
         self.endurance_radio.grid(row = 3, column = 0, sticky = "W")
 
         self.endurance_cv = tk.IntVar()
-        self.endurance_entry = tk.Entry(self.select_att_frame, textvariable = self.endurance_cv, width = 3)
+        self.endurance_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.endurance_cv, width = 3)
         self.endurance_entry.grid(row = 3, column = 1)
 
-        self.intellect_radio = tk.Radiobutton(self.select_att_frame, text = "Intellect:", value = "Intellect", variable = self.select_attribute)
+        self.intellect_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Intellect:", value = "Intellect", variable = self.select_attribute)
         self.intellect_radio.grid(row = 4, column = 0, sticky = "W")
 
         self.intellect_cv = tk.IntVar()
-        self.intellect_entry = tk.Entry(self.select_att_frame, textvariable = self.intellect_cv, width = 3)
+        self.intellect_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.intellect_cv, width = 3)
         self.intellect_entry.grid(row = 4, column = 1)
 
-        self.perception_radio = tk.Radiobutton(self.select_att_frame, text = "Perception:", value = "Perception", variable = self.select_attribute)
+        self.perception_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Perception:", value = "Perception", variable = self.select_attribute)
         self.perception_radio.grid(row = 5, column = 0, sticky = "W")
 
         self.perception_cv = tk.IntVar()
-        self.perception_entry = tk.Entry(self.select_att_frame, textvariable = self.perception_cv, width = 3)
-        self.perception_entry.grid(row = 5, column = 1, sticky = "W")
+        self.perception_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.perception_cv, width = 3)
+        self.perception_entry.grid(row = 5, column = 1)
 
-        self.will_radio = tk.Radiobutton(self.select_att_frame, text = "Will:", value = "Will", variable = self.select_attribute)
+        self.will_radio = tk.Radiobutton(self.select_att_frame, state = tk.DISABLED, text = "Will:", value = "Will", variable = self.select_attribute)
         self.will_radio.grid(row = 6, column = 0, sticky = "W")
 
         self.will_cv = tk.IntVar()
-        self.will_entry = tk.Entry(self.select_att_frame, textvariable = self.will_cv, width = 3)
+        self.will_entry = tk.Entry(self.select_att_frame, state = tk.DISABLED, textvariable = self.will_cv, width = 3)
         self.will_entry.grid(row = 6, column = 1)
+
+        self.att_reset = tk.Button(self.select_att_frame, command = self.reset_attributes, state = tk.DISABLED, text = "Reset")
+        self.att_reset.grid(row = 7, column = 1, columnspan = 2)
 
         self.select_att_frame.pack(side = tk.LEFT)
 
@@ -160,47 +163,53 @@ class Window:
 
         self.select_value = tk.IntVar()
 
-        self.att1_radio = tk.Radiobutton(self.select_value_frame, value = 1, variable = self.select_value)
+        self.att1_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 1, variable = self.select_value)
         self.att1_radio.grid(row = 1, column = 0)
 
         self.att1_cv = tk.IntVar()
-        self.att1_entry = tk.Entry(self.select_value_frame, textvariable = self.att1_cv, width = 3)
+        self.att1_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att1_cv, width = 3)
         self.att1_entry.grid(row = 1, column = 1)
 
-        self.att2_radio = tk.Radiobutton(self.select_value_frame, value = 2, variable = self.select_value)
+        self.att2_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 2, variable = self.select_value)
         self.att2_radio.grid(row = 2, column = 0)
 
         self.att2_cv = tk.IntVar()
-        self.att2_entry = tk.Entry(self.select_value_frame, textvariable = self.att2_cv, width = 3)
+        self.att2_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att2_cv, width = 3)
         self.att2_entry.grid(row = 2, column = 1)
 
-        self.att3_radio = tk.Radiobutton(self.select_value_frame, value = 3, variable = self.select_value)
+        self.att3_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 3, variable = self.select_value)
         self.att3_radio.grid(row = 3, column = 0)
 
         self.att3_cv = tk.IntVar()
-        self.att3_entry = tk.Entry(self.select_value_frame, textvariable = self.att3_cv, width = 3)
+        self.att3_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att3_cv, width = 3)
         self.att3_entry.grid(row = 3, column = 1)
 
-        self.att4_radio = tk.Radiobutton(self.select_value_frame, value = 4, variable = self.select_value)
+        self.att4_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 4, variable = self.select_value)
         self.att4_radio.grid(row = 4, column = 0)
 
         self.att4_cv = tk.IntVar()
-        self.att4_entry = tk.Entry(self.select_value_frame, textvariable = self.att4_cv, width = 3)
+        self.att4_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att4_cv, width = 3)
         self.att4_entry.grid(row = 4, column = 1)
 
-        self.att5_radio = tk.Radiobutton(self.select_value_frame, value = 5, variable = self.select_value)
+        self.att5_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 5, variable = self.select_value)
         self.att5_radio.grid(row = 5, column = 0)
 
         self.att5_cv = tk.IntVar()
-        self.att5_entry = tk.Entry(self.select_value_frame, textvariable = self.att5_cv, width = 3)
+        self.att5_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att5_cv, width = 3)
         self.att5_entry.grid(row = 5, column = 1)
 
-        self.att6_radio = tk.Radiobutton(self.select_value_frame, value = 6, variable = self.select_value)
+        self.att6_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 6, variable = self.select_value)
         self.att6_radio.grid(row = 6, column = 0)
 
         self.att6_cv = tk.IntVar()
-        self.att6_entry = tk.Entry(self.select_value_frame, textvariable = self.att6_cv, width = 3)
+        self.att6_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att6_cv, width = 3)
         self.att6_entry.grid(row = 6, column = 1)
+
+        self.begin_button = tk.Button(self.select_value_frame, command = self.generate_att_array, text = "Begin")
+        self.begin_button.grid(row = 7, column = 0)
+
+        self.assign_button = tk.Button(self.select_value_frame, command = self.assign_attribute, state = tk.DISABLED, text = "Assign")
+        self.assign_button.grid(row = 7, column = 1)
 
         self.select_value_frame.pack(side = tk.RIGHT)
 
@@ -310,10 +319,156 @@ class Window:
                 self.characters[new_name] = new_character
                 self.update_log(f"Character {new_name} added.")
                 self.update_listbox()
+
+                self.name_cv.set("")
+
+                self.strength_cv.set(0)
+                self.agility_cv.set(0)
+                self.endurance_cv.set(0)
+                self.intellect_cv.set(0)
+                self.perception_cv.set(0)
+                self.will_cv.set(0)
+
+                self.strength_radio.config(state = tk.DISABLED)
+                self.agility_radio.config(state = tk.DISABLED)
+                self.endurance_radio.config(state = tk.DISABLED)
+                self.intellect_radio.config(state = tk.DISABLED)
+                self.perception_radio.config(state = tk.DISABLED)
+                self.will_radio.config(state = tk.DISABLED)
+                self.select_attribute.set("")
+
+                self.att1_cv.set(0)
+                self.att2_cv.set(0)
+                self.att3_cv.set(0)
+                self.att4_cv.set(0)
+                self.att5_cv.set(0)
+                self.att6_cv.set(0)
+
+                self.att1_radio.config(state = tk.DISABLED)
+                self.att2_radio.config(state = tk.DISABLED)
+                self.att3_radio.config(state = tk.DISABLED)
+                self.att4_radio.config(state = tk.DISABLED)
+                self.att5_radio.config(state = tk.DISABLED)
+                self.att6_radio.config(state = tk.DISABLED)
+                self.select_value.set(0)
+
+                self.create_button.config(state = tk.DISABLED)
+                self.reset_attributes.config(state = tk.DISABLED)
+                self.assign_attribute.config(state = tk.DISABLED)
             else:
                 self.update_log(f"Character with name {new_name} already exists.")
         except tk.TclError:
             self.update_log("Attribute entry error: Attribute values must be whole numbers.")
+
+    def reset_attributes(self):
+        self.strength_cv.set(0)
+        self.agility_cv.set(0)
+        self.endurance_cv.set(0)
+        self.intellect_cv.set(0)
+        self.perception_cv.set(0)
+        self.will_cv.set(0)
+        
+        self.strength_radio.config(state = tk.NORMAL)
+        self.agility_radio.config(state = tk.NORMAL)
+        self.endurance_radio.config(state = tk.NORMAL)
+        self.intellect_radio.config(state = tk.NORMAL)
+        self.perception_radio.config(state = tk.NORMAL)
+        self.will_radio.config(state = tk.NORMAL)
+        self.select_attribute.set("")
+
+        self.att1_radio.config(state = tk.NORMAL)
+        self.att2_radio.config(state = tk.NORMAL)
+        self.att3_radio.config(state = tk.NORMAL)
+        self.att4_radio.config(state = tk.NORMAL)
+        self.att5_radio.config(state = tk.NORMAL)
+        self.att6_radio.config(state = tk.NORMAL)
+        self.select_value.set(0)
+
+        self.create_button.config(state = tk.DISABLED)
+
+    def generate_att_array(self):
+        self.att1_cv.set(25)
+        self.att2_cv.set(21)
+        self.att3_cv.set(18)
+        self.att4_cv.set(15)
+        self.att5_cv.set(12)
+        self.att6_cv.set(8)
+
+        self.strength_radio.config(state = tk.NORMAL)
+        self.agility_radio.config(state = tk.NORMAL)
+        self.endurance_radio.config(state = tk.NORMAL)
+        self.intellect_radio.config(state = tk.NORMAL)
+        self.perception_radio.config(state = tk.NORMAL)
+        self.will_radio.config(state = tk.NORMAL)
+        self.select_attribute.set("")
+
+        self.att1_radio.config(state = tk.NORMAL)
+        self.att2_radio.config(state = tk.NORMAL)
+        self.att3_radio.config(state = tk.NORMAL)
+        self.att4_radio.config(state = tk.NORMAL)
+        self.att5_radio.config(state = tk.NORMAL)
+        self.att6_radio.config(state = tk.NORMAL)
+        self.select_value.set(0)
+
+        self.att_reset.config(state = tk.NORMAL)
+        self.assign_button.config(state = tk.NORMAL)
+
+    def assign_attribute(self):
+        if self.select_attribute.get() == "" or self.select_value.get() == 0:
+            self.update_log("Select an attribute and  value in the array to assign.")
+        else:
+            match self.select_attribute.get():
+                case "Strength":
+                    selected_att_radio = self.strength_radio
+                    selected_att_cv = self.strength_cv
+                case "Agility":
+                    selected_att_radio = self.agility_radio
+                    selected_att_cv = self.agility_cv
+                case "Endurance":
+                    selected_att_radio = self.endurance_radio
+                    selected_att_cv = self.endurance_cv
+                case "Intellect":
+                    selected_att_radio = self.intellect_radio
+                    selected_att_cv = self.intellect_cv
+                case "Perception":
+                    selected_att_radio = self.perception_radio
+                    selected_att_cv = self.perception_cv
+                case "Will":
+                    selected_att_radio = self.will_radio
+                    selected_att_cv = self.will_cv
+
+            match self.select_value.get():
+                case 1:
+                    selected_value_radio = self.att1_radio
+                    selected_value_cv = self.att1_cv
+                case 2:
+                    selected_value_radio = self.att2_radio
+                    selected_value_cv = self.att2_cv
+                case 3:
+                    selected_value_radio = self.att3_radio
+                    selected_value_cv = self.att3_cv
+                case 4:
+                    selected_value_radio = self.att4_radio
+                    selected_value_cv = self.att4_cv
+                case 5:
+                    selected_value_radio = self.att5_radio
+                    selected_value_cv = self.att5_cv
+                case 6:
+                    selected_value_radio = self.att6_radio
+                    selected_value_cv = self.att6_cv
+
+            selected_att_cv.set(selected_value_cv.get())
+            selected_att_radio.config(state = tk.DISABLED)
+            selected_value_radio.config(state = tk.DISABLED)
+
+            self.update_log(f"{self.select_attribute.get()} set to {selected_value_cv.get()}.")
+
+            self.select_attribute.set("")
+            self.select_value.set(0)
+
+            if self.strength_radio.cget("state") == self.agility_radio.cget("state") == self.endurance_radio.cget("state") == self.intellect_radio.cget("state") == self.perception_radio.cget("state") == self.will_radio.cget("state") == tk.DISABLED:
+                self.create_button.config(state = tk.NORMAL)
+                self.update_log("All attributes assigned. Ready to create character. Don't forget to name them.")
 
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"

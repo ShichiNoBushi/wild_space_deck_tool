@@ -129,10 +129,10 @@ class Character:    #Wild Space RPG character
         raise Exception(f"Skill {name} not found.")
 
     def pain_threshold(self):
-        return min(self.endurance.score, self.will.score) // 2
+        return max(self.endurance.score, self.will.score) // 2
     
     def focus_threshold(self):
-        return min(self.intellect.score, self.will.score) // 2
+        return max(self.intellect.score, self.will.score) // 2
     
     def health(self):
         return self.strength.score // 10 + self.endurance.score // 10 + self.will.score // 10 + 5
