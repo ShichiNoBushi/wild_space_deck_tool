@@ -163,42 +163,42 @@ class Window:
 
         self.select_value = tk.IntVar()
 
-        self.att1_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 1, variable = self.select_value)
+        self.att1_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 1", value = 1, variable = self.select_value)
         self.att1_radio.grid(row = 1, column = 0)
 
         self.att1_cv = tk.IntVar()
         self.att1_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att1_cv, width = 3)
         self.att1_entry.grid(row = 1, column = 1)
 
-        self.att2_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 2, variable = self.select_value)
+        self.att2_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 2", value = 2, variable = self.select_value)
         self.att2_radio.grid(row = 2, column = 0)
 
         self.att2_cv = tk.IntVar()
         self.att2_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att2_cv, width = 3)
         self.att2_entry.grid(row = 2, column = 1)
 
-        self.att3_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 3, variable = self.select_value)
+        self.att3_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 3", value = 3, variable = self.select_value)
         self.att3_radio.grid(row = 3, column = 0)
 
         self.att3_cv = tk.IntVar()
         self.att3_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att3_cv, width = 3)
         self.att3_entry.grid(row = 3, column = 1)
 
-        self.att4_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 4, variable = self.select_value)
+        self.att4_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 4", value = 4, variable = self.select_value)
         self.att4_radio.grid(row = 4, column = 0)
 
         self.att4_cv = tk.IntVar()
         self.att4_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att4_cv, width = 3)
         self.att4_entry.grid(row = 4, column = 1)
 
-        self.att5_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 5, variable = self.select_value)
+        self.att5_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 5", value = 5, variable = self.select_value)
         self.att5_radio.grid(row = 5, column = 0)
 
         self.att5_cv = tk.IntVar()
         self.att5_entry = tk.Entry(self.select_value_frame, state = tk.DISABLED, textvariable = self.att5_cv, width = 3)
         self.att5_entry.grid(row = 5, column = 1)
 
-        self.att6_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, value = 6, variable = self.select_value)
+        self.att6_radio = tk.Radiobutton(self.select_value_frame, state = tk.DISABLED, text = "Attribute 6", value = 6, variable = self.select_value)
         self.att6_radio.grid(row = 6, column = 0)
 
         self.att6_cv = tk.IntVar()
@@ -214,6 +214,37 @@ class Window:
         self.select_value_frame.pack(side = tk.RIGHT)
 
         self.create_att_frame.pack(side = tk.TOP)
+
+        self.att_black_jack_frame = tk.Frame(self.create_tab)
+
+        self.atts_to_generate = 0
+        self.att_array = []
+
+        self.black_jack_hand = []
+        self.bj_hand_cv = tk.StringVar()
+        self.bj_hand_label = tk.Label(self.att_black_jack_frame, textvariable = self.bj_hand_cv, width = 20)
+        self.bj_hand_label.grid(row = 0, column = 0)
+
+        self.bj_att_score_cv = tk.IntVar()
+        self.bj_att_score_cv.set(0)
+        self.bj_att_score_entry = tk.Entry(self.att_black_jack_frame, state = tk.DISABLED, textvariable = self.bj_att_score_cv, width = 3)
+        self.bj_att_score_entry.grid(row = 0, column = 1)
+
+        self.bj_hits_label = tk.Label(self.att_black_jack_frame, text = "Hits remaining:")
+        self.bj_hits_label.grid(row = 1, column = 0)
+
+        self.hits_cv = tk.IntVar()
+        self.hits_cv.set(0)
+        self.hits_entry = tk.Entry(self.att_black_jack_frame, state = tk.DISABLED, textvariable = self.hits_cv, width = 3)
+        self.hits_entry.grid(row = 1, column = 1)
+
+        self.bj_hit_button = tk.Button(self.att_black_jack_frame, command = self.att_bj_hit, state = tk.DISABLED, text = "Hit")
+        self.bj_hit_button.grid(row = 0, column = 2)
+
+        self.bj_stay_button = tk.Button(self.att_black_jack_frame, command = self.att_bj_stay, state = tk.DISABLED, text = "Stay")
+        self.bj_stay_button.grid(row = 1, column = 2)
+
+        self.att_black_jack_frame.pack(side = tk.BOTTOM)
 
         self.main_nb.pack(side = tk.TOP)
 
@@ -387,31 +418,51 @@ class Window:
         self.create_button.config(state = tk.DISABLED)
 
     def generate_att_array(self):
-        self.att1_cv.set(25)
-        self.att2_cv.set(21)
-        self.att3_cv.set(18)
-        self.att4_cv.set(15)
-        self.att5_cv.set(12)
-        self.att6_cv.set(8)
+        self.strength_cv.set(0)
+        self.agility_cv.set(0)
+        self.endurance_cv.set(0)
+        self.intellect_cv.set(0)
+        self.perception_cv.set(0)
+        self.will_cv.set(0)
+        
+        self.att1_cv.set(0)
+        self.att2_cv.set(0)
+        self.att3_cv.set(0)
+        self.att4_cv.set(0)
+        self.att5_cv.set(0)
+        self.att6_cv.set(0)
 
-        self.strength_radio.config(state = tk.NORMAL)
-        self.agility_radio.config(state = tk.NORMAL)
-        self.endurance_radio.config(state = tk.NORMAL)
-        self.intellect_radio.config(state = tk.NORMAL)
-        self.perception_radio.config(state = tk.NORMAL)
-        self.will_radio.config(state = tk.NORMAL)
+        self.strength_radio.config(state = tk.DISABLED)
+        self.agility_radio.config(state = tk.DISABLED)
+        self.endurance_radio.config(state = tk.DISABLED)
+        self.intellect_radio.config(state = tk.DISABLED)
+        self.perception_radio.config(state = tk.DISABLED)
+        self.will_radio.config(state = tk.DISABLED)
         self.select_attribute.set("")
 
-        self.att1_radio.config(state = tk.NORMAL)
-        self.att2_radio.config(state = tk.NORMAL)
-        self.att3_radio.config(state = tk.NORMAL)
-        self.att4_radio.config(state = tk.NORMAL)
-        self.att5_radio.config(state = tk.NORMAL)
-        self.att6_radio.config(state = tk.NORMAL)
+        self.att1_radio.config(state = tk.DISABLED)
+        self.att2_radio.config(state = tk.DISABLED)
+        self.att3_radio.config(state = tk.DISABLED)
+        self.att4_radio.config(state = tk.DISABLED)
+        self.att5_radio.config(state = tk.DISABLED)
+        self.att6_radio.config(state = tk.DISABLED)
         self.select_value.set(0)
 
-        self.att_reset.config(state = tk.NORMAL)
-        self.assign_button.config(state = tk.NORMAL)
+        self.att_reset.config(state = tk.DISABLED)
+        self.assign_button.config(state = tk.DISABLED)
+
+        self.galaxy_a_deck.shuffle(self.galaxy_d_deck, self.galaxy_discard)
+        self.galaxy_d_deck = self.galaxy_a_deck.cut()
+
+        self.black_jack_hand.extend(self.galaxy_a_deck.draw(2))
+        self.bj_hand_cv.set(" ".join(card.short_hand() for card in self.black_jack_hand))
+        self.bj_att_score_cv.set(sum(card.attribute_value() for card in self.black_jack_hand))
+        self.atts_to_generate = 6
+        self.att_array = []
+        self.hits_cv.set(4)
+
+        self.bj_hit_button.config(state = tk.NORMAL)
+        self.bj_stay_button.config(state = tk.NORMAL)
 
     def assign_attribute(self):
         if self.select_attribute.get() == "" or self.select_value.get() == 0:
@@ -469,6 +520,92 @@ class Window:
             if self.strength_radio.cget("state") == self.agility_radio.cget("state") == self.endurance_radio.cget("state") == self.intellect_radio.cget("state") == self.perception_radio.cget("state") == self.will_radio.cget("state") == tk.DISABLED:
                 self.create_button.config(state = tk.NORMAL)
                 self.update_log("All attributes assigned. Ready to create character. Don't forget to name them.")
+
+    def att_bj_hit(self):
+        if self.galaxy_a_deck.size() > 0:
+            self.black_jack_hand.extend(self.galaxy_a_deck.draw())
+        else:
+            self.black_jack_hand.extend(self.galaxy_d_deck.draw())
+
+        self.bj_hand_cv.set(" ".join(card.short_hand() for card in self.black_jack_hand))
+        self.bj_att_score_cv.set(sum(card.attribute_value() for card in self.black_jack_hand))
+        self.hits_cv.set(self.hits_cv.get() - 1)
+
+        self.update_log(f"Score: {self.bj_att_score_cv.get()}, Hits: {self.hits_cv.get()}")
+
+        if self.bj_att_score_cv.get() > 21:
+            self.update_log("Busted!")
+            if self.hits_cv.get() > 0:
+                self.update_log("-1 Hit")
+                self.hits_cv.set(self.hits_cv.get() - 1)
+            else:
+                self.update_log("Insufficient hits; -5 Score")
+                self.bj_att_score_cv.set(self.bj_att_score_cv.get() - 5)
+
+        if self.bj_att_score_cv.get() > 21 or self.hits_cv.get() == 0:
+            self.bj_hit_button.config(state = tk.DISABLED)
+
+    def att_bj_stay(self):
+        match self.atts_to_generate:
+            case 6:
+                self.att1_cv.set(self.bj_att_score_cv.get())
+            case 5:
+                self.att2_cv.set(self.bj_att_score_cv.get())
+            case 4:
+                self.att3_cv.set(self.bj_att_score_cv.get())
+            case 3:
+                self.att4_cv.set(self.bj_att_score_cv.get())
+            case 2:
+                self.att5_cv.set(self.bj_att_score_cv.get())
+            case 1:
+                self.att6_cv.set(self.bj_att_score_cv.get())
+
+        self.att_array.append(self.bj_att_score_cv.get())
+
+        self.galaxy_discard.fillList(self.black_jack_hand)
+        self.black_jack_hand = []
+        
+        self.atts_to_generate -= 1
+        if len(self.att_array) < 6:
+            self.black_jack_hand.extend(self.galaxy_a_deck.draw(2))
+            if len(self.black_jack_hand) < 2:
+                self.black_jack_hand.extend(self.galaxy_d_deck.draw(2 - len(self.black_jack_hand)))
+            self.bj_hand_cv.set(" ".join(card.short_hand() for card in self.black_jack_hand))
+            self.bj_att_score_cv.set(sum(card.attribute_value() for card in self.black_jack_hand))
+        else:
+            self.bj_hit_button.config(state = tk.DISABLED)
+            self.bj_stay_button.config(state = tk.DISABLED)
+            self.bj_att_score_cv.set(0)
+
+            self.strength_radio.config(state = tk.NORMAL)
+            self.agility_radio.config(state = tk.NORMAL)
+            self.endurance_radio.config(state = tk.NORMAL)
+            self.intellect_radio.config(state = tk.NORMAL)
+            self.perception_radio.config(state = tk.NORMAL)
+            self.will_radio.config(state = tk.NORMAL)
+            self.select_attribute.set("")
+
+            self.att_array.sort(reverse = True)
+            self.att1_cv.set(self.att_array[0])
+            self.att2_cv.set(self.att_array[1])
+            self.att3_cv.set(self.att_array[2])
+            self.att4_cv.set(self.att_array[3])
+            self.att5_cv.set(self.att_array[4])
+            self.att6_cv.set(self.att_array[5])
+
+            self.att1_radio.config(state = tk.NORMAL)
+            self.att2_radio.config(state = tk.NORMAL)
+            self.att3_radio.config(state = tk.NORMAL)
+            self.att4_radio.config(state = tk.NORMAL)
+            self.att5_radio.config(state = tk.NORMAL)
+            self.att6_radio.config(state = tk.NORMAL)
+            self.select_value.set(0)
+
+            self.att_reset.config(state = tk.NORMAL)
+            self.assign_button.config(state = tk.NORMAL)
+
+        if self.hits_cv.get() > 0:
+            self.bj_hit_button.config(state = tk.NORMAL)
 
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"
