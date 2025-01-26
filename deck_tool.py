@@ -87,7 +87,7 @@ class Window:
         self.char_data_frame1.pack(side = tk.RIGHT)
 
         self.create_button = tk.Button(self.create_tab, text = "Create Character", command = self.create_character, state = tk.DISABLED)  #button to create a character
-        self.create_button.pack(side = tk.TOP)
+        self.create_button.grid(row = 0, column = 0)
 
         self.create_name_frame = tk.Frame(self.create_tab)
 
@@ -98,7 +98,7 @@ class Window:
         self.name_entry = tk.Entry(self.create_name_frame, textvariable = self.name_cv)
         self.name_entry.pack(side = tk.RIGHT)
 
-        self.create_name_frame.pack(side = tk.TOP)
+        self.create_name_frame.grid(row = 1, column = 0)
 
         self.create_att_frame = tk.Frame(self.create_tab)
 
@@ -213,7 +213,7 @@ class Window:
 
         self.select_value_frame.pack(side = tk.RIGHT)
 
-        self.create_att_frame.pack(side = tk.TOP)
+        self.create_att_frame.grid(row = 2, column = 0)
 
         self.att_black_jack_frame = tk.Frame(self.create_tab)
 
@@ -244,7 +244,21 @@ class Window:
         self.bj_stay_button = tk.Button(self.att_black_jack_frame, command = self.att_bj_stay, state = tk.DISABLED, text = "Stay")
         self.bj_stay_button.grid(row = 1, column = 2)
 
-        self.att_black_jack_frame.pack(side = tk.BOTTOM)
+        self.att_black_jack_frame.grid(row = 3, column = 0)
+
+        self.create_skill_frame = tk.Frame(self.create_tab)
+
+        self.skill_category_cv = tk.StringVar()
+        self.skill_category_cv.set(list(SKILL_LIST.keys())[0])
+        self.skill_category_om = tk.OptionMenu(self.create_skill_frame, self.skill_category_cv, *list(SKILL_LIST.keys()), command = self.update_skill_list)
+        self.skill_category_om.grid(row = 0, column = 0)
+
+        self.skill_name_cv = tk.StringVar()
+        self.skill_name_cv.set(SKILL_LIST[self.skill_category_cv.get()][0])
+        self.skill_name_om = tk.OptionMenu(self.create_skill_frame, self.skill_name_cv, *SKILL_LIST["Martial"])
+        self.skill_name_om.grid(row = 0, column = 1)
+
+        self.create_skill_frame.grid(row = 4, column = 0)
 
         self.main_nb.pack(side = tk.TOP)
 
@@ -606,6 +620,14 @@ class Window:
 
         if self.hits_cv.get() > 0:
             self.bj_hit_button.config(state = tk.NORMAL)
+
+    def update_skill_list(self, selected_category):
+        skill_category = SKILL_LIST[selected_category]
+        self.skill_name_cv.set(skill_category[0])
+        menu = self.skill_name_om["menu"]
+        menu.delete(0, "end")
+        for skill in skill_category:
+            menu.add_command(label = skill, command = lambda s = skill: self.skill_name_cv.set(s))
 
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"

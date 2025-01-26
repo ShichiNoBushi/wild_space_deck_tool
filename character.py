@@ -1,5 +1,85 @@
 from deck import *
 
+SKILL_LIST = {"Martial": [
+                "Axe",
+                "Block",
+                "Dodge",
+                "Hammer",
+                "Spear",
+                "Sword"
+            ],
+              "Athletic": [
+                "Acrobatics",
+                "Balance",
+                "Climb",
+                "Sprint",
+                "Stealth",
+                "Swim"
+            ],
+              "Operation": [
+                "Aircraft",
+                "Digital",
+                "Industrial",
+                "Landcraft",
+                "Seacraft",
+                "Voidcraft"
+            ],
+              "Trade": [
+                "Agriculture",
+                "Architecture",
+                "Carpentry",
+                "Construction",
+                "Culinary",
+                "Electronics",
+                "Mechanics",
+                "Medicine",
+                "Navigation",
+                "Programming",
+                "Robotics",
+                "Tailor"
+            ],
+              "Artistic": [
+                "Dance",
+                "Keyboards",
+                "Percussion",
+                "Sing",
+                "String Instrument",
+                "Visual Art",
+                "Wind Instrument"
+            ],
+              "Social": [
+                "Bluff",
+                "Diction",
+                "Diplomacy",
+                "Empathy",
+                "Intimidate",
+                "Seduction"
+            ],
+              "Academic": [
+                "Astronomy",
+                "Biology",
+                "Chemistry",
+                "Folklore",
+                "Geology",
+                "Military",
+                "Occult",
+                "Pop Culture",
+                "Politics",
+                "Physics",
+                "Theology"
+            ],
+              "Supernatural": [
+                "Alchemy",
+                "Communion",
+                "Divination",
+                "Enchanting",
+                "Instillment",
+                "Sorcery",
+                "Summoning",
+                "Wizardry",
+                "Warding"
+            ]}
+
 class Attribute:    #basic character trait
     def __init__(self, score, name):
         self.score = score
