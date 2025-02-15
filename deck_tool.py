@@ -246,19 +246,50 @@ class Window:
 
         self.att_black_jack_frame.grid(row = 3, column = 0)
 
+        self.skill_points_frame = tk.Frame(self.create_tab)
+
+        self.skill_points_label = tk.Label(self.skill_points_frame, text = "Skill Points Remaining:")
+        self.skill_points_label.grid(row = 0, column = 0)
+
+        self.skill_points_cv = tk.IntVar()
+        self.skill_points_cv.set(0)
+        self.skill_points_entry = tk.Entry(self.skill_points_frame, state = tk.DISABLED, textvariable = self.skill_points_cv, width = 3)
+        self.skill_points_entry.grid(row = 0, column = 1)
+
+        self.skill_points_frame.grid(row = 0, column = 1)
+
         self.create_skill_frame = tk.Frame(self.create_tab)
 
         self.skill_category_cv = tk.StringVar()
         self.skill_category_cv.set(list(SKILL_LIST.keys())[0])
         self.skill_category_om = tk.OptionMenu(self.create_skill_frame, self.skill_category_cv, *list(SKILL_LIST.keys()), command = self.update_skill_list)
+        self.skill_category_om.config(width = 10)
         self.skill_category_om.grid(row = 0, column = 0)
 
         self.skill_name_cv = tk.StringVar()
         self.skill_name_cv.set(SKILL_LIST[self.skill_category_cv.get()][0])
         self.skill_name_om = tk.OptionMenu(self.create_skill_frame, self.skill_name_cv, *SKILL_LIST["Martial"])
+        self.skill_name_om.config(width = 10)
         self.skill_name_om.grid(row = 0, column = 1)
 
-        self.create_skill_frame.grid(row = 4, column = 0)
+        self.skill_create_button = tk.Button(self.create_skill_frame, command = self.create_learn_skill, text = "Learn", state = tk.DISABLED)
+        self.skill_create_button.grid(row = 0, column = 2)
+
+        self.create_skill_frame.grid(row = 1, column = 1)
+
+        self.skills_list_frame = tk.Frame(self.create_tab)
+
+        self.skills_list_scroll = tk.Scrollbar(self.skills_list_frame)
+        self.skills_list_scroll.pack(side = tk.RIGHT)
+
+        self.skills_array = []
+        self.skills_list_cv = tk.StringVar(value = self.skills_array)
+        self.skills_list = tk.Listbox(self.skills_list_frame, listvariable = self.skills_list_cv, yscrollcommand = self.skills_list_scroll.set)
+        self.skills_list.pack(side = tk.LEFT)
+
+        self.skills_list_scroll.config(command = self.skills_list.yview)
+
+        self.skills_list_frame.grid(row = 2, column = 1, rowspan = 2)
 
         self.main_nb.pack(side = tk.TOP)
 
@@ -360,6 +391,9 @@ class Window:
 
             new_character = Character(new_name, [("Strength", strength), ("Agility", agility), ("Endurance", endurance), ("Intellect", intellect), ("Perception", perception), ("Will", will)])
 
+            for s in self.skills_array:
+                new_character.set_skill(s.name, s.score, s.category)
+
             if new_name not in self.characters:
                 self.characters[new_name] = new_character
                 self.update_log(f"Character {new_name} added.")
@@ -400,6 +434,10 @@ class Window:
                 self.create_button.config(state = tk.DISABLED)
                 self.reset_attributes.config(state = tk.DISABLED)
                 self.assign_attribute.config(state = tk.DISABLED)
+
+                self.skill_create_button.config(state = tk.DISABLED)
+                self.skill_points_cv.set(0)
+                self.skills_array = []
             else:
                 self.update_log(f"Character with name {new_name} already exists.")
         except tk.TclError:
@@ -477,6 +515,10 @@ class Window:
 
         self.bj_hit_button.config(state = tk.NORMAL)
         self.bj_stay_button.config(state = tk.NORMAL)
+
+        self.skill_create_button.config(state = tk.NORMAL)
+        self.skill_points_cv.set(5)
+        self.skills_array = []
 
     def assign_attribute(self):
         if self.select_attribute.get() == "" or self.select_value.get() == 0:
@@ -629,6 +671,28 @@ class Window:
         for skill in skill_category:
             menu.add_command(label = skill, command = lambda s = skill: self.skill_name_cv.set(s))
 
+    def create_learn_skill(self):
+        skill_learned = False
+        new_skill = None
+        for s in self.skills_array:
+            if s.name == self.skill_name_cv.get():
+                skill_learned = True
+                new_skill = s
+                break
+        
+        if not skill_learned:
+            new_skill = Skill(10, self.skill_name_cv.get(), self.skill_category_cv.get())
+            self.skills_array.append(new_skill)
+            self.skill_points_cv.set(self.skill_points_cv.get() - 1)
+        else:
+            new_skill.score += 5
+            self.skill_points_cv.set(self.skill_points_cv.get() - 1)
+
+        self.update_skill_listbox()
+
+        if self.skill_points_cv.get() == 0:
+            self.skill_create_button.config(state = tk.DISABLED)
+
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"
         new_character = Character(new_name)
@@ -644,6 +708,9 @@ class Window:
 
     def update_listbox(self):
         self.lb_characters.set(list(self.characters.keys()))
+
+    def update_skill_listbox(self):
+        self.skills_list_cv.set(self.skills_array)
 
     def close(self):
         #self._running = False
