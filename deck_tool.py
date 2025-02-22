@@ -291,6 +291,22 @@ class Window:
 
         self.skills_list_frame.grid(row = 2, column = 1, rowspan = 2)
 
+        self.skills_buttons_frame = tk.Frame(self.create_tab)
+
+        self.improve_skill_button = tk.Button(self.skills_buttons_frame, command = self.improve_skill, text = "Improve", state = tk.DISABLED)
+        self.improve_skill_button.grid(row = 0, column = 0)
+
+        self.remove_skill_button = tk.Button(self.skills_buttons_frame, command = self.remove_skill, text = "Remove", state = tk.DISABLED)
+        self.remove_skill_button.grid(row = 0, column = 1)
+
+        self.reset_skill_button = tk.Button(self.skills_buttons_frame, command = self.reset_skill, text = "Reset", state = tk.DISABLED)
+        self.reset_skill_button.grid(row = 0, column = 2)
+
+        self.reset_all_skill_button = tk.Button(self.skills_buttons_frame, command = self.reset_all_skill, text = "Reset All", state = tk.DISABLED)
+        self.reset_all_skill_button.grid(row = 0, column = 3)
+
+        self.skills_buttons_frame.grid(row = 5, column = 1)
+
         self.main_nb.pack(side = tk.TOP)
 
         self.log_frame = tk.Frame(self._root)   #frame to display log at bottom of window
@@ -369,8 +385,14 @@ class Window:
             name_line = f"Name: {character.name}\n\n"
             attributes_line = f"Attributes:\nStrength:   {character.strength.score}\nAgility:    {character.agility.score}\nEndurance:  {character.endurance.score}\nIntellect:  {character.intellect.score}\nPerception: {character.perception.score}\nWill:       {character.will.score}\n\n"
             derived_line = f"Derived stats:\nHealth:          {character.health()}\nPain Threshold:  {character.pain_threshold()}\nFocus Threshold: {character.focus_threshold()}\n\n"
+            skills_line = f"Skills:\n"
+            for cat in list(character.skills.keys()):
+                skills_line += f"{cat}:\n"
+                for skill in list(character.skills[cat].keys()):
+                    skills_line += f"    {character.skills[cat][skill]}\n"
+            skills_line += "\n"
 
-            chara_data = name_line + attributes_line + derived_line
+            chara_data = name_line + attributes_line + derived_line + skills_line
             self.characters_data.config(state = tk.NORMAL)
             self.characters_data.delete(1.0, tk.END)
             self.characters_data.insert(tk.END, chara_data)
@@ -432,10 +454,14 @@ class Window:
                 self.select_value.set(0)
 
                 self.create_button.config(state = tk.DISABLED)
-                self.reset_attributes.config(state = tk.DISABLED)
-                self.assign_attribute.config(state = tk.DISABLED)
+                self.att_reset.config(state = tk.DISABLED)
+                self.assign_button.config(state = tk.DISABLED)
 
                 self.skill_create_button.config(state = tk.DISABLED)
+                self.improve_skill_button.config(state = tk.DISABLED)
+                self.remove_skill_button.config(state = tk.DISABLED)
+                self.reset_skill_button.config(state = tk.DISABLED)
+                self.reset_all_skill_button.config(state = tk.DISABLED)
                 self.skill_points_cv.set(0)
                 self.skills_array = []
             else:
@@ -517,6 +543,10 @@ class Window:
         self.bj_stay_button.config(state = tk.NORMAL)
 
         self.skill_create_button.config(state = tk.NORMAL)
+        self.improve_skill_button.config(state = tk.NORMAL)
+        self.remove_skill_button.config(state = tk.NORMAL)
+        self.reset_skill_button.config(state = tk.NORMAL)
+        self.reset_all_skill_button.config(state = tk.NORMAL)
         self.skill_points_cv.set(5)
         self.skills_array = []
 
@@ -692,6 +722,55 @@ class Window:
 
         if self.skill_points_cv.get() == 0:
             self.skill_create_button.config(state = tk.DISABLED)
+            self.improve_skill_button.config(state = tk.DISABLED)
+
+    def improve_skill(self):
+        if len(self.skills_list.curselection()) == 0:
+            self.update_log("No Skill selected.")
+        else:
+            selected_skill = self.skills_array[self.skills_list.curselection()[0]]
+            selected_skill.score += 5
+            self.skill_points_cv.set(self.skill_points_cv.get() - 1)
+            self.update_skill_listbox()
+            if self.skill_points_cv.get() == 0:
+                self.skill_create_button.config(state = tk.DISABLED)
+                self.improve_skill_button.config(state = tk.DISABLED)
+
+    def remove_skill(self):
+        if len(self.skills_list.curselection()) == 0:
+            self.update_log("No Skill selected.")
+        else:
+            selected_skill = self.skills_array[self.skills_list.curselection()[0]]
+            if selected_skill.score == 10:
+                self.skills_array.remove(selected_skill)
+            else:
+                selected_skill.score -= 5
+            self.skill_points_cv.set(self.skill_points_cv.get() + 1)
+            self.update_skill_listbox()
+            self.skill_create_button.config(state = tk.NORMAL)
+            self.improve_skill_button.config(state = tk.NORMAL)
+
+    def reset_skill(self):
+        if len(self.skills_list.curselection()) == 0:
+            self.update_log("No Skill selected.")
+        else:
+            selected_skill = self.skills_array[self.skills_list.curselection()[0]]
+            self.update_log(f"Skill {selected_skill.name} has score {selected_skill.score} and is worth {(selected_skill.score - 5) // 5} skill points.")
+            self.skill_points_cv.set(self.skill_points_cv.get() + (selected_skill.score - 5) // 5)
+            self.skills_array.remove(selected_skill)
+            self.update_skill_listbox()
+            self.skill_create_button.config(state = tk.NORMAL)
+            self.improve_skill_button.config(state = tk.NORMAL)
+
+    def reset_all_skill(self):
+        while len(self.skills_array) > 0:
+            s = self.skills_array[0]
+            self.update_log(f"Skill {s.name} has score {s.score} and is worth {(s.score - 5) // 5} skill points.")
+            self.skill_points_cv.set(self.skill_points_cv.get() + (s.score - 5) // 5)
+            self.skills_array.remove(s)
+        self.update_skill_listbox()
+        self.skill_create_button.config(state = tk.NORMAL)
+        self.improve_skill_button.config(state = tk.NORMAL)
 
     def create_character_simple(self):  #create a character using simple methods
         new_name = f"Character {len(self.characters) + 1}"
