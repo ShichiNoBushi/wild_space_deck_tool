@@ -552,7 +552,7 @@ class Window:
 
     def assign_attribute(self):
         if self.select_attribute.get() == "" or self.select_value.get() == 0:
-            self.update_log("Select an attribute and  value in the array to assign.")
+            self.update_log("Select an attribute and value in the array to assign.")
         else:
             match self.select_attribute.get():
                 case "Strength":
