@@ -1,11 +1,17 @@
 # Wild Space Deck Tool
 
+## Description
 This program is intended to be used with my original table-top role-playing game system, [Wild Space](https://docs.google.com/document/d/19ghgfYaQrrJxNv02-S3PG78V8ymhDLAjK4x_1gQrGVM/edit?usp=share_link). Unlike most other TTRPGs, Wild Space uses decks of playing cards rather than dice. This program is designed to be used in place of a deck of cards and possibly even do some of the unique card-based mechanics for the user.
 
+## Quick Start
 Make sure Python 3 is installed on the computer running this program. Then in your command line navigate to the root directory and enter "python3 deck_tool.py" into the command line.
 
+## Usage
 The first tab, "Buttons", is a simple environment to draw cards either a single card or multiple at a time. The results are posted to the field at the bottom of the window.
 
 The second tab, "Characters", is where the list of existing characters is presented. When a character is selected from the list, their stats are displayed on the right side.
 
 The third tab, "Create", is where you create a character according to the rules of the RPG system. Click "Begin" to start the Attribute generation process. For each Attribute two cards are drawn, and their values added together according to Black Jack rules (numbers equal to printed value, face cards [Jack, Queen, King] equal 10, Ace is equal to 11). Press "Hit" to draw an additional card. User has a limited number of Hits for all Attributes which is displayed. If the total number of cards exceeds 21, the number is "busted" and an additional Hit is penalized or 5 points removed from the total if no remaining Hits and the user is forced to Stay. The "Stay" button commits the total value to an array of up to 6 Attribute values and draws cards for the next value if less than 6 have been generated. Once all 6 values are generated, they are sorted from high to low on the upper-left section. The user then selects an Attribute on the left and a value from the array on the right then clicks "Assign" to assign the character's Attributes according to their preference. After Assign is pressed, the selected options are disabled until all Attribute values have been assigned. On the upper-right, the user selects Skills for the character. The character starts with 5 points to spend on learning and improving Skills. Select a Skill category from the left drop-down and a Skill from the category from the right drop-down. Click "Learn" to add the selected Skill as a new Skill or improve it if it already exists in the character's list. Learning a new Skill costs 1 point and starts it at 10, and improving a learned Skill costs 1 point and increases its value by 5. Select a Skill from the list below to Improve, Remove, or Reset a Skill or reset all the Skills in the character's list. A character cannot be created without being given a name at the top of the window.
+
+## Contributing
+The primary project is the TTRPG Wild Space. I would appreciate any interest in that project including critique and suggestions for the system or even volunteers to playtest it. Try playing it with decks of playing cards, but if that is too complicated for you, try it with the Deck Tool instead. I would appreciate any suggestions for missing features to ultimately replace the need for a deck of cards or bookkeeping for characters.
